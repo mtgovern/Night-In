@@ -6,7 +6,6 @@
   <title>Night In</title>
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.4.3/dist/css/foundation.min.css" integrity="sha256-GSio8qamaXapM8Fq9JYdGNTvk/dgs+cMLgPeevOYEx0= sha384-wAweiGTn38CY2DSwAaEffed6iMeflc0FMiuptanbN4J+ib+342gKGpvYRWubPd/+ sha512-QHEb6jOC8SaGTmYmGU19u2FhIfeG+t/hSacIWPpDzOp5yygnthL3JwnilM7LM1dOAbJv62R+/FICfsrKUqv4Gg==" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.4.3/dist/js/foundation.min.js" integrity="sha256-mRYlCu5EG+ouD07WxLF8v4ZAZYCA6WrmdIXyn1Bv9Vk= sha384-KzKofw4qqetd3kvuQ5AdapWPqV1ZI+CnfyfEwZQgPk8poOLWaabfgJOfmW7uI+AV sha512-0gHfaMkY+Do568TgjJC2iMAV0dQlY4NqbeZ4pr9lVUTXQzKu8qceyd6wg/3Uql9qA2+3X5NHv3IMb05wb387rA==" crossorigin="anonymous"></script>
 
 </head>
 
@@ -53,19 +52,19 @@ function displayMovieInfo() {
 var query = "spaghetti";
 var ingredients ="onions";
 //  $(this).attr("data-name");
-var queryURL = "https://recipe-puppy.p.rapidapi.com/?p=1&i=" + ingredients + "&q=" + query + "&apikey=3606c3e55cmsh29177efa7ad81c4p1104c9jsna3124ed278ee";
+var queryURL = "https://recipe-puppy.p.rapidapi.com/?p=1&i=" + ingredients + "&q=" + query 
 
 // Creating an AJAX call for the specific movie button being clicked
 var settings = {
 	"async": true,
 	"crossDomain": true,
-	"url": "https://recipe-puppy.p.rapidapi.com/?p=1&i=onions%252Cgarlic&q=omelet",
+	"url": queryURL,
 	"method": "GET",
 	"headers": {
 		"x-rapidapi-host": "recipe-puppy.p.rapidapi.com",
 		"x-rapidapi-key": "3606c3e55cmsh29177efa7ad81c4p1104c9jsna3124ed278ee"
 	}
-}
+};
 
 // $.ajax({
 //   url: queryURL,
@@ -75,11 +74,12 @@ var settings = {
 
 
 $.ajax(settings).done(function (response) {
-	console.log(response);
+	console.log(JSON.stringify(JSON.parse(response),null,2));
 });
 
+}
 
-
+displayMovieInfo();
 
 
 //   // Creating a div to hold the movie
@@ -169,7 +169,11 @@ $.ajax(settings).done(function (response) {
 
 // // Calling the renderButtons function to display the initial buttons
 // renderButtons();
+
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.4.3/dist/js/foundation.min.js" integrity="sha256-mRYlCu5EG+ouD07WxLF8v4ZAZYCA6WrmdIXyn1Bv9Vk= sha384-KzKofw4qqetd3kvuQ5AdapWPqV1ZI+CnfyfEwZQgPk8poOLWaabfgJOfmW7uI+AV sha512-0gHfaMkY+Do568TgjJC2iMAV0dQlY4NqbeZ4pr9lVUTXQzKu8qceyd6wg/3Uql9qA2+3X5NHv3IMb05wb387rA==" crossorigin="anonymous"></script>
+
   
 
 </body>
