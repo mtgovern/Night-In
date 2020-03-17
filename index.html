@@ -34,20 +34,22 @@
       <div class="card-section">
         <label>
           What do you want to eat?
-          <textarea placeholder="Ex: Spaghetti"></textarea>
+          <textarea id="search-input" placeholder="Ex: Spaghetti"></textarea>
         </label>
         <div class="input-group-button">
-          <input type="submit" class="button" value="Submit">
+          <input type="submit" class="button" id="submit-button" value="Submit">
         </div>
       </div>
     </div>
     <div class="cell small-3"></div>
   </div>  
 
+  <div id="recipes"></div>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript">
 
-function displayMovieInfo() {
+function displayRecipeInfo() {
 
 var query = "spaghetti";
 var ingredients ="onions";
@@ -73,59 +75,60 @@ var settings = {
 
 
 
-$.ajax(settings).done(function (response) {
-	console.log(JSON.stringify(JSON.parse(response),null,2));
+$.ajax(settings).then(function (response) {
+response = JSON.parse(response);
+console.log(response);
+
+
+// displayRecipe();{
+
+
+  // Creating a div to hold the recipeß
+  var recipeDiv = $("<div class='recipe'>");
+
+  // Storing the rating data
+  var title = response.results[0].title;
+
+  // Creating an element to have the rating displayed
+  var pOne = $("<p>").text("Recipe: " + title);
+
+  // Displaying the rating
+  recipeDiv.append(pOne);
+
+  // Storing the release year
+  var link = response.results[0].href;
+
+  // Creating an element to hold the release year
+  var pTwo = $("<a>").html(link);
+  pTwo.attr('href', link);  
+
+  // Displaying the release year
+  recipeDiv.append(pTwo);
+
+  // Storing the plot
+  var ingredients = response.results[0].ingredients;
+
+  // Creating an element to hold the plot
+  var pThree = $("<p>").text("Ingredients: " + ingredients);
+
+  // Appending the plot
+  recipeDiv.append(pThree);
+
+  // Retrieving the URL for the image
+  var imgURL = response.results[0].thunbnail;
+
+  // Creating an element to hold the image
+  var image = $("<img>").attr("src", imgURL);
+
+  // Appending the image
+  recipeDiv.append(image);
+
+  // Putting the entire movie above the previous movies
+  $("#recipes").prepend(recipeDiv);
+
 });
 
 }
-
-displayMovieInfo();
-
-
-//   // Creating a div to hold the movie
-//   var movieDiv = $("<div class='movie'>");
-
-//   // Storing the rating data
-//   var rating = response.Rated;
-
-//   // Creating an element to have the rating displayed
-//   var pOne = $("<p>").text("Rating: " + rating);
-
-//   // Displaying the rating
-//   movieDiv.append(pOne);
-
-//   // Storing the release year
-//   var released = response.Released;
-
-//   // Creating an element to hold the release year
-//   var pTwo = $("<p>").text("Released: " + released);
-
-//   // Displaying the release year
-//   movieDiv.append(pTwo);
-
-//   // Storing the plot
-//   var plot = response.Plot;
-
-//   // Creating an element to hold the plot
-//   var pThree = $("<p>").text("Plot: " + plot);
-
-//   // Appending the plot
-//   movieDiv.append(pThree);
-
-//   // Retrieving the URL for the image
-//   var imgURL = response.Poster;
-
-//   // Creating an element to hold the image
-//   var image = $("<img>").attr("src", imgURL);
-
-//   // Appending the image
-//   movieDiv.append(image);
-
-//   // Putting the entire movie above the previous movies
-//   $("#movies-view").prepend(movieDiv);
-// });
-
-// }
 
 // // Function for displaying movie data
 // function renderButtons() {
@@ -151,11 +154,12 @@ displayMovieInfo();
 // }
 // }
 
-// // This function handles events where a movie button is clicked
-// $("#add-movie").on("click", function(event) {
-// event.preventDefault();
-// // This line grabs the input from the textbox
-// var movie = $("#movie-input").val().trim();
+// This function handles events where a movie button is clicked
+$("#submit-button").on("click", function(event) {
+event.preventDefault();
+// This line grabs the input from the textbox
+var recipe = $("#search-input").val().trim();
+displayRecipeInfo();
 
 // // Adding movie from the textbox to our array
 // movies.push(movie);
@@ -165,10 +169,14 @@ displayMovieInfo();
 // });
 
 // // Adding a click event listener to all elements with a class of "movie-btn"
-// $(document).on("click", ".movie-btn", displayMovieInfo);
+// $(document).on("click", "#submit-button", displayRecipeInfo);
 
-// // Calling the renderButtons function to display the initial buttons
+// Calling the renderButtons function to display the initial buttons
 // renderButtons();
+
+})
+
+
 
 </script>
 
