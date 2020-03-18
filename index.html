@@ -80,14 +80,15 @@ response = JSON.parse(response);
 console.log(response);
 
 
-// displayRecipe();{
+// displayRecipe();
+
+for(var i=0; i < response.results.length; i++){
 
 
   // Creating a div to hold the recipeß
   var recipeDiv = $("<div class='recipe'>");
 
-  // Storing the rating data
-  var title = response.results[0].title;
+  var title = response.results[i].title;
 
   // Creating an element to have the rating displayed
   var pOne = $("<p>").text("Recipe: " + title);
@@ -96,7 +97,7 @@ console.log(response);
   recipeDiv.append(pOne);
 
   // Storing the release year
-  var link = response.results[0].href;
+  var link = response.results[i].href;
 
   // Creating an element to hold the release year
   var pTwo = $("<a>").html(link);
@@ -106,7 +107,7 @@ console.log(response);
   recipeDiv.append(pTwo);
 
   // Storing the plot
-  var ingredients = response.results[0].ingredients;
+  var ingredients = response.results[i].ingredients;
 
   // Creating an element to hold the plot
   var pThree = $("<p>").text("Ingredients: " + ingredients);
@@ -115,7 +116,7 @@ console.log(response);
   recipeDiv.append(pThree);
 
   // Retrieving the URL for the image
-  var imgURL = response.results[0].thunbnail;
+  var imgURL = response.results[i].thunbnail;
 
   // Creating an element to hold the image
   var image = $("<img>").attr("src", imgURL);
@@ -126,7 +127,7 @@ console.log(response);
   // Putting the entire movie above the previous movies
   $("#recipes").prepend(recipeDiv);
 
-});
+}});
 
 }
 
