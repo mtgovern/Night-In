@@ -56,7 +56,7 @@
   </div>
   <div class="cell small-1"></div>
 
-  <div class="card small-5">
+  <div class="card small-3">
     <div class="card-divider">
       Your movie suggestion
     </div>
@@ -138,7 +138,7 @@ function displayMovieInfo() {
 
 // var movie = $(this).attr("data-name");
 var movie = $("#search-input").val().trim();
-var queryURL = "https://www.omdbapi.com/?t=*" + movie + "*&apikey=trilogy";
+var queryURL = "https://www.omdbapi.com/?s=*" + movie + "*&apikey=trilogy&p=1&plot&y";
 // var queryURL = "http://www.omdbapi.com/?s=*" + movie + "*&apikey=trilogy"
 
 // Creating an AJAX call for the specific movie button being clicked
@@ -148,15 +148,15 @@ $.ajax({
 }).then(function(response) {
 
 console.log(response);
-// for(var i=0; i < 5; i++){
 
-  $("#movie").text("");
+  $("#movie").empty();
 
+  for(var i=0; i < 5; i++){
 
   // Creating a div to hold the movie
   var movieDiv = $("<div class='movie'>");
 
-  var title = response.Title;
+  var title = response.Search[i].Title;
 
   // Creating an element to hold the release year
   var pZero = $("<p>").text("Title: " + title);
@@ -165,7 +165,7 @@ console.log(response);
   movieDiv.append(pZero);
 
   // Storing the rating data
-  var rating = response.Rated;
+  var rating = response.Search[i].Rating;
 
   // Creating an element to have the rating displayed
   var pOne = $("<p>").text("Rating: " + rating);
@@ -174,7 +174,7 @@ console.log(response);
   movieDiv.append(pOne);
 
   // Storing the release year
-  var released = response.Released;
+  var released = response.Search[i].Year;
 
   // Creating an element to hold the release year
   var pTwo = $("<p>").text("Released: " + released);
@@ -184,7 +184,7 @@ console.log(response);
 
 
   // Storing the plot
-  var plot = response.Plot;
+  var plot = response.Search[i].Plot;
 
   // Creating an element to hold the plot
   var pThree = $("<p>").text("Plot: " + plot);
@@ -193,7 +193,7 @@ console.log(response);
   movieDiv.append(pThree);
 
   // Retrieving the URL for the image
-  var imgURL = response.Poster;
+  var imgURL = response.Search[i].Poster;
 
   // Creating an element to hold the image
   var image = $("<img>").attr("src", imgURL);
@@ -203,7 +203,7 @@ console.log(response);
 
   // Putting the entire movie above the previous movies
   $("#movie").prepend(movieDiv);
-// }
+}
 });
 
 }
