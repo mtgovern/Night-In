@@ -85,47 +85,39 @@
 
   <script type="text/javascript">
 
+//  Drink Function
   $("#drink-button").on("click",function(){
     
-      $.ajax({
-  type: 'GET',
-  url: 'https://the-cocktail-db.p.rapidapi.com/random.php',
-  dataType: 'json',
-  context: $('body'),
-  "headers": {
-		"x-rapidapi-host": "the-cocktail-db.p.rapidapi.com",
-		"x-rapidapi-key": "f63d5bf495msh4087ca830e0d9b4p19cb34jsnbff62b1188b9"
-	},
+  $.ajax({
+      type: 'GET',
+      url: 'https://the-cocktail-db.p.rapidapi.com/random.php',
+      dataType: 'json',
+      context: $('body'),
+      "headers": {
+        "x-rapidapi-host": "the-cocktail-db.p.rapidapi.com",
+        "x-rapidapi-key": "f63d5bf495msh4087ca830e0d9b4p19cb34jsnbff62b1188b9"
+      },
   success: function(data){
-          console.log(data);
+        console.log(data);
 
-          $("#drinkDiv").text("");
+        $("#drinkDiv").text("");
 
-      // displayRecipe();
         var drinkDiv = $("<div class='recipe'>");
 
         var name = data.drinks[0].strDrink;
-        // Creating an element to have the rating displayed
         var pOne = $("<p>").text("Name: " + name);
-        // Displaying the rating
         drinkDiv.append(pOne);
-        // Retrieving the URL for the image
+ 
         var imgURL = data.drinks[0].strDrinkThumb;
-        // Creating an element to hold the image
         var image = $("<img>").attr("src", imgURL);
-        // Appending the image
         drinkDiv.append(image);
-        // Storing the release year
+
         var alcoholic = data.drinks[0].strAlcoholic;
-        // Creating an element to hold the release year
         var pTwo = $("<p>").text(alcoholic);
-        // Displaying the release year
         drinkDiv.append(pTwo);
-        // Storing the plot
+
         var glass = data.drinks[0].strGlass;
-        // Creating an element to hold the plot
         var pThree = $("<p>").text("Glass: " + glass);
-        // Appending the plot
         drinkDiv.append(pThree);
 
         var ig1 = data.drinks[0].strIngredient1;
@@ -198,14 +190,13 @@
 })
 });
 
+// recipe function
 function displayRecipeInfo() {
-// var query = "spaghetti";
-// var ingredients ="onions";
+
 var ingredients = $("#ingredient-input").val().trim();
-// var query = $(this).attr("data-name");
 var query = $("#search-input").val().trim();
 var queryURL = "https://recipe-puppy.p.rapidapi.com/?p=1&i=" + ingredients + "&q=" + query
-// Creating an AJAX call for the specific movie button being clicked
+
 var settings = {
   "async": true,
   "crossDomain": true,
@@ -223,112 +214,85 @@ console.log(response);
 
 $("#recipes").text("");
 
-// displayRecipe();
-for(var i=0; i < 3; i++){
-  // Creating a div to hold the recipeß
-  var recipeDiv = $("<div class='recipe'>");
-  var title = response.results[i].title;
-  // Creating an element to have the rating displayed
-  var pOne = $("<p>").text("Recipe: " + title);
-  // Displaying the rating
-  recipeDiv.append(pOne);
-  // Storing the release year
-  var link = response.results[i].href;
-  // Creating an element to hold the release year
-  var pTwo = $("<a>").html(link);
-  pTwo.attr('href', link);
-  // Displaying the release year
-  recipeDiv.append(pTwo);
-  // Storing the plot
-  var ingredients = response.results[i].ingredients;
-  // Creating an element to hold the plot
-  var pThree = $("<p>").text("Ingredients: " + ingredients);
-  // Appending the plot
-  recipeDiv.append(pThree);
-  // Retrieving the URL for the image
-  var imgURL = response.results[i].thumbnail;
-  // Creating an element to hold the image
-  var image = $("<img>").attr("src", imgURL);
-  // Appending the image
-  recipeDiv.append(image);
-  // Putting the entire movie above the previous movies
-  var hr = $("<hr>");
-  // Appending the image
-  recipeDiv.append(hr);
 
-  $("#recipes").append(recipeDiv);
-}});
+  for(var i=0; i < 3; i++){
+      // Creating a div to hold the recipe
+      var recipeDiv = $("<div class='recipe'>");
+      var title = response.results[i].title;
+      var pOne = $("<p>").text("Recipe: " + title);
+      recipeDiv.append(pOne);
+
+      var link = response.results[i].href;
+      var pTwo = $("<a>").html(link);
+      pTwo.attr('href', link);
+      recipeDiv.append(pTwo);
+
+      var ingredients = response.results[i].ingredients;
+      var pThree = $("<p>").text("Ingredients: " + ingredients);
+      recipeDiv.append(pThree);
+
+      var imgURL = response.results[i].thumbnail;
+      var image = $("<img>").attr("src", imgURL);
+      recipeDiv.append(image);
+      
+      var hr = $("<hr>");
+    
+      recipeDiv.append(hr);
+
+      $("#recipes").append(recipeDiv);
+  }});
 }
 
 function displayMovieInfo() {
 
-// var movie = $(this).attr("data-name");
+
 var movie = $("#search-input").val().trim();
 var queryURL = "https://www.omdbapi.com/?s=*" + movie + "*&apikey=trilogy&p=1&plot&y";
 // var queryURL = "http://www.omdbapi.com/?s=*" + movie + "*&apikey=trilogy"
 
-// Creating an AJAX call for the specific movie button being clicked
+// movie function
 $.ajax({
   url: queryURL,
   method: "GET"
 }).then(function(response) {
 
-console.log(response);
+    console.log(response);
 
-  $("#movie").empty();
+    $("#movie").empty();
 
-  for(var i=0; i < 5; i++){
+    for(var i=0; i < 5; i++){
 
-  // Creating a div to hold the movie
-  var movieDiv = $("<div class='movie'>");
+      var movieDiv = $("<div class='movie'>");
 
-  var title = response.Search[i].Title;
+      var title = response.Search[i].Title;
+      var pZero = $("<p>").text("Title: " + title);
+      movieDiv.append(pZero);
 
-  // Creating an element to hold the release year
-  var pZero = $("<p>").text("Title: " + title);
+      var released = response.Search[i].Year;
+      var pTwo = $("<p>").text("Released: " + released);
+      movieDiv.append(pTwo);
 
-  // Displaying the release year
-  movieDiv.append(pZero);
+      var imgURL = response.Search[i].Poster;
+      var image = $("<img>").attr("src", imgURL);
+      movieDiv.append(image);
 
-  // Storing the release year
-  var released = response.Search[i].Year;
+      var hr = $("<hr>");
 
-  // Creating an element to hold the release year
-  var pTwo = $("<p>").text("Released: " + released);
+      movieDiv.append(hr);
 
-  // Displaying the release year
-  movieDiv.append(pTwo);
-
-  // Retrieving the URL for the image
-  var imgURL = response.Search[i].Poster;
-
-  // Creating an element to hold the image
-  var image = $("<img>").attr("src", imgURL);
-
-  // Appending the image
-  movieDiv.append(image);
-
-  // Putting the entire movie above the previous movies
-  var hr = $("<hr>");
-  // Appending the image
-  movieDiv.append(hr);
-
-  // Putting the entire movie above the previous movies
-  $("#movie").prepend(movieDiv);
-}
-});
+      $("#movie").prepend(movieDiv);
+  }
+  });
 
 }
 
 
-// This function handles events where a movie button is clicked
 $("#submit-button").on("click", function(event) {
 event.preventDefault();
-// This line grabs the input from the textbox
+
 var recipe = $("#search-input").val().trim();
 displayRecipeInfo();
 displayMovieInfo();
-
 })
 
 
