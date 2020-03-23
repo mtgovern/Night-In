@@ -10,9 +10,6 @@
     <div class="top-bar-left">
       <ul class="dropdown menu" data-dropdown-menu>
         <li class="menu-text">Night In</li>
-        <li><a href="#">One</a></li>
-        <li><a href="#">Two</a></li>
-        <li><a href="#">Three</a></li>
       </ul>
     </div>
     <div class="top-bar-right">
@@ -20,8 +17,8 @@
   </div>
   <br>
   <div class="grid-x">
-    <div class="cell small-3"></div>
-    <div class="card small-6">
+    <div class="cell small-1"></div>
+    <div class="card small-3">
       <div class="card-divider">
         Time for a great night in!
       </div>
@@ -40,7 +37,20 @@
         </div>
       </div>
     </div>
-    <div class="cell small-3"></div>
+
+      <div class="cell small-1"></div>
+
+  <div class="card small-5">
+    <div class="card-divider">
+      See the recipes.
+    </div>
+    <div class="card-section">
+      <div id="recipes"></div>
+    </div>
+
+    
+  </div>
+  <div class="cell small-1"></div>
   </div>
 
 <br>
@@ -48,10 +58,13 @@
   <div class="cell small-1"></div>
   <div class="card small-5">
     <div class="card-divider">
-      See the recipes.
+      Let's have a drink!
     </div>
     <div class="card-section">
-      <div id="recipes"></div>
+      <div class="input-group-button">
+        <input type="submit" class="button" id="drink-button" value="Random Drink">
+      </div>
+      <div id="drinkDiv"></div>
     </div>
   </div>
   <div class="cell small-1"></div>
@@ -68,7 +81,123 @@
 
 </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
+
   <script type="text/javascript">
+
+  $("#drink-button").on("click",function(){
+    
+      $.ajax({
+  type: 'GET',
+  url: 'https://the-cocktail-db.p.rapidapi.com/random.php',
+  dataType: 'json',
+  context: $('body'),
+  "headers": {
+		"x-rapidapi-host": "the-cocktail-db.p.rapidapi.com",
+		"x-rapidapi-key": "f63d5bf495msh4087ca830e0d9b4p19cb34jsnbff62b1188b9"
+	},
+  success: function(data){
+          console.log(data);
+
+          $("#drinkDiv").text("");
+
+      // displayRecipe();
+        var drinkDiv = $("<div class='recipe'>");
+
+        var name = data.drinks[0].strDrink;
+        // Creating an element to have the rating displayed
+        var pOne = $("<p>").text("Name: " + name);
+        // Displaying the rating
+        drinkDiv.append(pOne);
+        // Retrieving the URL for the image
+        var imgURL = data.drinks[0].strDrinkThumb;
+        // Creating an element to hold the image
+        var image = $("<img>").attr("src", imgURL);
+        // Appending the image
+        drinkDiv.append(image);
+        // Storing the release year
+        var alcoholic = data.drinks[0].strAlcoholic;
+        // Creating an element to hold the release year
+        var pTwo = $("<p>").text(alcoholic);
+        // Displaying the release year
+        drinkDiv.append(pTwo);
+        // Storing the plot
+        var glass = data.drinks[0].strGlass;
+        // Creating an element to hold the plot
+        var pThree = $("<p>").text("Glass: " + glass);
+        // Appending the plot
+        drinkDiv.append(pThree);
+
+        var ig1 = data.drinks[0].strIngredient1;
+        var pFour = $("<p>").text(ig1);
+        drinkDiv.append(pFour);
+
+        var m1 = data.drinks[0].strMeasure1;
+        var Four = $("<p>").text(m1);
+        drinkDiv.append(Four);
+
+        var ig2 = data.drinks[0].strIngredient2;
+        var pFive = $("<p>").text(ig2);
+        drinkDiv.append(pFive);
+
+        var m2 = data.drinks[0].strMeasure2;
+        var Five = $("<p>").text(m2);
+        drinkDiv.append(Five);
+
+        var ig3 = data.drinks[0].strIngredient3;
+        var pSix = $("<p>").text(ig3);
+        drinkDiv.append(pSix);
+
+        var m3 = data.drinks[0].strMeasure3;
+        var Six = $("<p>").text(m3);
+        drinkDiv.append(Six);
+
+        var ig4 = data.drinks[0].strIngredient4;
+        var pSeven = $("<p>").text(ig4);
+        drinkDiv.append(pSeven);
+
+        var m4 = data.drinks[0].strMeasure4;
+        var Seven = $("<p>").text(m4);
+        drinkDiv.append(Seven);
+
+        var ig5 = data.drinks[0].strIngredient5;
+        var pEight = $("<p>").text(ig5);
+        drinkDiv.append(pEight);
+
+        var m5 = data.drinks[0].strMeasure5;
+        var Eight = $("<p>").text(m5);
+        drinkDiv.append(Eight);
+
+        var ig6 = data.drinks[0].strIngredient6;
+        var pNine = $("<p>").text(ig6);
+        drinkDiv.append(pNine);
+
+        var m6 = data.drinks[0].strMeasure6;
+        var Nine = $("<p>").text(m6);
+        drinkDiv.append(Nine);
+
+        var ig7 = data.drinks[0].strIngredient7;
+        var pTen = $("<p>").text(ig7);
+        drinkDiv.append(pTen);
+
+        var m7 = data.drinks[0].strMeasure7;
+        var Ten = $("<p>").text(m7);
+        drinkDiv.append(Ten);
+
+        var ig8 = data.drinks[0].strIngredient8;
+        var pEleven = $("<p>").text(ig8);
+        drinkDiv.append(pEleven);
+
+        var m8 = data.drinks[0].strMeasure8;
+        var Eleven = $("<p>").text(m8);
+        drinkDiv.append(Eleven);
+
+        $("#drinkDiv").append(drinkDiv);
+      }
+
+})
+});
+
 function displayRecipeInfo() {
 // var query = "spaghetti";
 // var ingredients ="onions";
@@ -87,10 +216,7 @@ var settings = {
     "x-rapidapi-key": "3606c3e55cmsh29177efa7ad81c4p1104c9jsna3124ed278ee"
   }
 };
-// $.ajax({
-//   url: queryURL,
-//   method: "GET"
-// }).then(function(response) {
+
 $.ajax(settings).then(function (response) {
 response = JSON.parse(response);
 console.log(response);
@@ -98,7 +224,7 @@ console.log(response);
 $("#recipes").text("");
 
 // displayRecipe();
-for(var i=0; i < response.results.length; i++){
+for(var i=0; i < 3; i++){
   // Creating a div to hold the recipeß
   var recipeDiv = $("<div class='recipe'>");
   var title = response.results[i].title;
@@ -164,15 +290,6 @@ console.log(response);
   // Displaying the release year
   movieDiv.append(pZero);
 
-  // Storing the rating data
-  var rating = response.Search[i].Rating;
-
-  // Creating an element to have the rating displayed
-  var pOne = $("<p>").text("Rating: " + rating);
-
-  // Displaying the rating
-  movieDiv.append(pOne);
-
   // Storing the release year
   var released = response.Search[i].Year;
 
@@ -182,16 +299,6 @@ console.log(response);
   // Displaying the release year
   movieDiv.append(pTwo);
 
-
-  // Storing the plot
-  var plot = response.Search[i].Plot;
-
-  // Creating an element to hold the plot
-  var pThree = $("<p>").text("Plot: " + plot);
-
-  // Appending the plot
-  movieDiv.append(pThree);
-
   // Retrieving the URL for the image
   var imgURL = response.Search[i].Poster;
 
@@ -200,6 +307,11 @@ console.log(response);
 
   // Appending the image
   movieDiv.append(image);
+
+  // Putting the entire movie above the previous movies
+  var hr = $("<hr>");
+  // Appending the image
+  movieDiv.append(hr);
 
   // Putting the entire movie above the previous movies
   $("#movie").prepend(movieDiv);
@@ -218,6 +330,8 @@ displayRecipeInfo();
 displayMovieInfo();
 
 })
+
+
 </script>
 <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.4.3/dist/js/foundation.min.js" integrity="sha256-mRYlCu5EG+ouD07WxLF8v4ZAZYCA6WrmdIXyn1Bv9Vk= sha384-KzKofw4qqetd3kvuQ5AdapWPqV1ZI+CnfyfEwZQgPk8poOLWaabfgJOfmW7uI+AV sha512-0gHfaMkY+Do568TgjJC2iMAV0dQlY4NqbeZ4pr9lVUTXQzKu8qceyd6wg/3Uql9qA2+3X5NHv3IMb05wb387rA==" crossorigin="anonymous"></script>
 </body>
