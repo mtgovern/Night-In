@@ -5,7 +5,7 @@
 As a person who is scared of the coronavirus, I want to go to a website where I can find a movie, recipe and a drink so that I don't have to intereact with the public.  
 
 ### Future Improvements:
-* Find a movie API that will allow us to search by the plot of a movie
+* Find a movie API that will allows to search by the plot of a movie
 * Find an API that has the ability to search for specific drinks or by ingredient
 
 
@@ -17,7 +17,6 @@ Here's a link to the deployed app:
 
 ## Usage 
 
-```
 GIVEN a night-in dashboard with form inputs
 WHEN I search for a meal
 THEN I am presented with recipes with the name of the meal and a movie theme consistent with the name of the meal.
@@ -25,7 +24,7 @@ WHEN I search for ingredients that I have in my kitchen
 THEN I am presented with recipes with those ingredients
 WHEN I click on Random Drink
 THEN I am presented with the name of the drink and the ingredients to make it
-```
+
 
 The following image demonstrates the application functionality:
 
